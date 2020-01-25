@@ -4,3 +4,8 @@
 /.idea
 
 .idea
+
+/site.db
+
+/__pycache__
+
