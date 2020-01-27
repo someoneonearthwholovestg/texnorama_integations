@@ -1,32 +1,12 @@
 
-from flask import Flask, jsonify
-from flask import request
-from texnobot import notify_by_telegram_channel
-import json
-from flask import Response
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
+from setting import DB_CONNECTION_URL
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = DB_CONNECTION_URL
 
-db = SQLAlchemy(app)
-
-
-class Post(db.Model):
-    id = db.Column(db.String(32), primary_key=True)
-    msg_id = db.Column(db.Integer)
+from views import new_post, update_post
 
 
-@app.route('/newpost', methods=['POST'])
-def index():
-    post = json.loads(request.data)['post']['current']
-    if Post.query.filter_by(id=post["id"]).first():
-        return Response("Not Cool", 200)
-    message_id = notify_by_telegram_channel(post)
-    Post(id=str(post["id"]), msg_id=message_id)
-    return Response("Cool", 200)
-
-
-if __name__ == '__main__':
-    db.create_all()
-    app.run(debug=True)
+app.add_url_rule('/newpost', 'publish', methods=['POST'], view_func=new_post)
+app.add_url_rule('/updatepost', 'update', methods=['POST'], view_func=update_post)

@@ -1,6 +1,7 @@
 from urllib.parse import urljoin
 
 import requests
+from setting import GHOST_CC_TOKEN
 
 
 class GhostContentClient:
@@ -27,7 +28,7 @@ class GhostContentClient:
         )
 
 
-gc = GhostContentClient('texnorama.uz', 'dea042c373b56c588b5802df70')
+gc = GhostContentClient('texnorama.uz', GHOST_CC_TOKEN)
 
 import json
 rsp = gc.get_latest_published_post()
