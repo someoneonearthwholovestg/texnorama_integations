@@ -1,5 +1,6 @@
 from flask import jsonify
 from flask import request
+from fb import send_fb_msg
 from texnobot import notify_by_telegram_channel
 from texnobot import edit_message_text
 import json
@@ -12,6 +13,7 @@ def new_post():
     if Post.query.filter_by(id=post["id"]).first():
         return Response("Not Cool", 200)
     message_id = notify_by_telegram_channel(post)
+    send_fb_msg(post)
     post = Post(id=str(post["id"]), msg_id=message_id)
     db.session.add(post)
     db.session.commit()
