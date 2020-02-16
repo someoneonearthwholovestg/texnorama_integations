@@ -7,6 +7,7 @@ import json
 from flask import Response
 from models import db, Post
 
+
 def new_post():
     post = json.loads(request.data)['post']['current']
     print(post['id'])
@@ -14,6 +15,7 @@ def new_post():
         return Response("Not Cool", 200)
     message_id = notify_by_telegram_channel(post)
     send_fb_msg(post)
+
     post = Post(id=str(post["id"]), msg_id=message_id)
     db.session.add(post)
     db.session.commit()
@@ -25,5 +27,8 @@ def update_post():
     p = Post.query.filter_by(id=post["id"]).first()
     print(p)
     msg_id = p.msg_id
-    edit_message_text(post, msg_id)
+    try:
+        edit_message_text(post, msg_id)
+    except Exception as e:
+        print(e)
     return Response("Cool", 200)

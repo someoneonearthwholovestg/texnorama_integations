@@ -1,7 +1,7 @@
 from urllib.parse import urljoin
 
 import requests
-from setting import GHOST_CC_TOKEN
+from settings import GHOST_CC_TOKEN
 
 
 class GhostContentClient:
