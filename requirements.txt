@@ -1,6 +1,5 @@
 autoit==0.1
 beautifulsoup4==4.8.1
-cairocffi===file-.cairocffi-VERSION
 CairoSVG==2.4.2
 certifi==2019.11.28
 cffi==1.13.2
