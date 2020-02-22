@@ -5,9 +5,13 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from celery import Celery
 from config import Config
+import facebook
+import telebot
 
 db = SQLAlchemy()
-celery = Celery(__name__, broker=Config.CELERY_BROKER_URL)
+# celery = Celery(__name__, broker=Config.CELERY_BROKER_URL)
+graph = facebook.GraphAPI(access_token=Config.FB_GRAPH_API_TOKEN)
+bot = telebot.TeleBot(Config.TELEGRAM_BOT_TOKEN)
 
 
 def create_app():
@@ -18,7 +22,7 @@ def create_app():
     
     db.init_app(app)
 
-    celery.conf.update(app.config)
+    # celery.conf.update(app.config)
 
     with app.app_context():
         from . import routes

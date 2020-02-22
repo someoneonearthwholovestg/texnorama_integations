@@ -26,4 +26,4 @@ class Config:
     TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 
     FB_PAGE_ID = os.environ.get('FB_PAGE_ID')
-    CHAT_ID = os.environ.get('CHAT_ID')
+    TELEGRAM_CHANNEL_CHAT_ID = os.environ.get('TELEGRAM_CHANNEL_CHAT_ID')
