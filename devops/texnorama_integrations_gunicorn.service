@@ -1,0 +1,22 @@
+[Unit]
+Description=Texnorama-Integrations Gunicorn Service
+After=network.target
+
+[Service]
+User=texnorama_integrations
+Group=www-data
+WorkingDirectory=/home/texnorama_integrations/texnorama_integations
+Environment="PATH=/home/sammy/myproject/myprojectenv/bin"
+ExecStart=/home/texnorama_integrations/texnorama_integations/gunicorn \
+  --log-level=debug \
+  --name "texnorama_integations_gunicorn" \
+  --error-logfile /home/texnorama_integrations/texnorama_integations/logs/texnorama_integrations_gunicorn-error.log \
+  --access-logfile /home/texnorama_integrations/texnorama_integations/logs/texnorama_integrations_gunicorn-access.log \
+  --capture-output \
+  --workers 1 \
+  --threads 1 \
+  --bind=unix:texnorama_integrations.sock -m 007 wsgi:app
+
+[Install]
+WantedBy=multi-user.target
+
