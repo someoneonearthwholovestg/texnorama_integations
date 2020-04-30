@@ -1,15 +1,15 @@
 # Texnorama integration with Telegram, Facebook and Instagram(maybe)
 
-	## Installation
+## Installation
 
-	Use the package manager [pip](https://pip.pypa.io/en/stable/) to install required wrappers.
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install required wrappers.
 
-	```bash
-	pip install -r requiremnts.txt
-	```
+```bash
+pip install -r requiremnts.txt
+```
 
-	## Usage
+## Usage
 
-	``` bash
-		python run.py
-	```
+``` bash
+  python run.py
+```
