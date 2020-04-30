@@ -11,5 +11,5 @@ pip install -r requiremnts.txt
 ## Usage
 
 ``` bash
-  python run.py
+python run.py
 ```
