@@ -1,3 +1,5 @@
+import traceback
+
 import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
@@ -17,8 +19,9 @@ from logger import get_logger
 
 logger = get_logger()
 
-
+@logger.catch
 def construct_message_text(post):
+    logger.info("\n============ Message is Constructed from Post <slug: {}>==================".format(post['slug']))
     markup = InlineKeyboardMarkup()
     btn = InlineKeyboardButton('Batafsil', url=post['url'])
     markup.add(btn)
@@ -39,13 +42,17 @@ def notify_by_telegram_channel(post):
     txt, markup = construct_message_text(post)
     # msg = bot.send_message(chat_id=chat_id, text=txt, parse_mode='HTML', reply_markup=markup)
     print(f"=====Feature image {post['feature_image']}=======")
-    if post['feature_image']:
-        msg = bot.send_photo(chat_id=chat_id, photo=post['feature_image'], caption=txt, reply_markup=markup)
-    else:
-        msg = bot.send_message(chat_id=chat_id, text=txt)
-    logger.success("\n============Post is Sent==================")
-    return msg.message_id
-
+    try:
+        if post['feature_image']:
+            msg = bot.send_photo(chat_id=chat_id, photo=post['feature_image'], caption=txt, reply_markup=markup)
+            logger.success("============ Message <id: {}> is Sent with Captioned Photo ==================".format(msg.message_id))
+        else:
+            msg = bot.send_message(chat_id=chat_id, text=txt)
+            logger.success("\n============ Message  <id: {}> is Sent ==================".format(msg.message_id))
+        return msg.message_id
+    except Exception:
+        logger.error("\n============! {} !==================".format(traceback.format_exc()))    
+        return None
 
 
 def edit_message_text(post, msg_id):
