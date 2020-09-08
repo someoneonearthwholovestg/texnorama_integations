@@ -10,7 +10,7 @@ db_uri = 'sqlite:///{}'.format(db_path)
 class Config:
     APP_NAME = os.environ.get('APP_NAME')
     APP_URL = os.environ.get('APP_URL')
-
+    DEBUG_MODE = os.environ.get('DEBUG_MODE')
     # Database
     SQLALCHEMY_DATABASE_URI = db_uri
     SQLALCHEMY_TRACK_MODIFICATIONS = os.environ.get('SQLALCHEMY_TRACK_MODIFICATIONS')

@@ -8,6 +8,15 @@ from telebot import types
 from . import pub_service
 from .. import bot, Config
 
+import sys
+import pathlib
+project_path = pathlib.Path(__file__).parents[2]
+sys.path.insert(0, str(project_path))
+from logger import get_logger
+
+
+logger = get_logger()
+
 
 def construct_message_text(post):
     markup = InlineKeyboardMarkup()
@@ -21,24 +30,22 @@ Kanalimizga obuna bo'ling!!!
 https://t.me/texnorama
     """, markup]
 
-
+@logger.catch
 @pub_service
 def notify_by_telegram_channel(post):
     chat_id = Config.TELEGRAM_CHANNEL_CHAT_ID# CHANNEL ID
     print(f'========CHAT_ID = {chat_id}===============')
     # txt = order_details_text(order)
     txt, markup = construct_message_text(post)
-    try:
-        # msg = bot.send_message(chat_id=chat_id, text=txt, parse_mode='HTML', reply_markup=markup)
-        print(f"=====Feature image {post['feature_image']}=======")
-        if post['feature_image']:
-            msg = bot.send_photo(chat_id=chat_id, photo=post['feature_image'], caption=txt, reply_markup=markup)
-        else:
-            msg = bot.send_message(chat_id=chat_id, text=txt)
-        return msg.message_id
-    except Exception as e:
-        print(e)
-        return None
+    # msg = bot.send_message(chat_id=chat_id, text=txt, parse_mode='HTML', reply_markup=markup)
+    print(f"=====Feature image {post['feature_image']}=======")
+    if post['feature_image']:
+        msg = bot.send_photo(chat_id=chat_id, photo=post['feature_image'], caption=txt, reply_markup=markup)
+    else:
+        msg = bot.send_message(chat_id=chat_id, text=txt)
+    logger.success("\n============Post is Sent==================")
+    return msg.message_id
+
 
 
 def edit_message_text(post, msg_id):
