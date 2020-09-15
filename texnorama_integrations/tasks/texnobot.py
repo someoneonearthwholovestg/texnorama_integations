@@ -26,12 +26,14 @@ def construct_message_text(post):
     btn = InlineKeyboardButton('Batafsil', url=post['url'])
     markup.add(btn)
     # return [f'**{post["title"]}**\n\n\n{post["excerpt"]}\n\n{post["url"]}\n\n Kanalimizga obuna bo\'ling!!! ', markup]
-    return [f"""
-    {post["title"]}
+    return f"""
+    **{post["title"]**}
+
+Batafsil: {post["url"]}
 
 Kanalimizga obuna bo'ling!!!
-https://t.me/texnorama
-    """, markup]
+[Texnorama](https://t.me/texnorama)
+    """
 
 @logger.catch
 @pub_service
@@ -39,15 +41,15 @@ def notify_by_telegram_channel(post):
     chat_id = Config.TELEGRAM_CHANNEL_CHAT_ID# CHANNEL ID
     print(f'========CHAT_ID = {chat_id}===============')
     # txt = order_details_text(order)
-    txt, markup = construct_message_text(post)
-    # msg = bot.send_message(chat_id=chat_id, text=txt, parse_mode='HTML', reply_markup=markup)
+    txt = construct_message_text(post)
+    # msg = bot.send_message(chat_id=chat_id, text=txt, parse_mode='Markdown')
     print(f"=====Feature image {post['feature_image']}=======")
     try:
         if post['feature_image']:
-            msg = bot.send_photo(chat_id=chat_id, photo=post['feature_image'], caption=txt, reply_markup=markup)
+            msg = bot.send_photo(chat_id=chat_id, photo=post['feature_image'], caption=txt, parse_mode='Markdown')
             logger.success("============ Message <id: {}> is Sent with Captioned Photo ==================".format(msg.message_id))
         else:
-            msg = bot.send_message(chat_id=chat_id, text=txt)
+            msg = bot.send_message(chat_id=chat_id, text=txt, parse_mode='Markdown')
             logger.success("\n============ Message  <id: {}> is Sent ==================".format(msg.message_id))
         return msg.message_id
     except Exception:
