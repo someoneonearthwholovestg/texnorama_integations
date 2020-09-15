@@ -31,8 +31,11 @@ def construct_message_text(post):
 
 Batafsil: {post["url"]}
 
-Kanalimizga obuna bo'ling!!!
-[Texnorama](https://t.me/texnorama)
+:blush: Bizga obuna bo'ling!!!
+:point_right: [Texnorama](https://t.me/texnorama)
+:point_right: [Instagram](https://www.instagram.com/texnorama.uz/)
+:point_right: [Facebook](https://www.facebook.com/Texnoramauz-105786940766295/)
+:point_right: [Twitter](https://twitter.com/texnorama)
     """
 
 @logger.catch
