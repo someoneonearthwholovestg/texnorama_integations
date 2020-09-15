@@ -33,10 +33,10 @@ Batafsil: {post["url"]}
 
 😊 Bizga obuna bo'ling!!!
 👉 [Texnorama](https://t.me/texnorama)
-👉 [Instagram](https://www.instagram.com/texnorama.uz/)
-👉 [Facebook](https://www.facebook.com/Texnoramauz-105786940766295/)
-👉 [Twitter](https://twitter.com/texnorama)
     """
+# 👉 [Instagram](https://www.instagram.com/texnorama.uz/)
+# 👉 [Facebook](https://www.facebook.com/Texnoramauz-105786940766295/)
+# 👉 [Twitter](https://twitter.com/texnorama)
 
 @logger.catch
 @pub_service
