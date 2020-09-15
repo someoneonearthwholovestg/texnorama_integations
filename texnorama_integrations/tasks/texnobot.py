@@ -27,7 +27,7 @@ def construct_message_text(post):
     markup.add(btn)
     # return [f'**{post["title"]}**\n\n\n{post["excerpt"]}\n\n{post["url"]}\n\n Kanalimizga obuna bo\'ling!!! ', markup]
     return f"""
-    **{post["title"]**}
+    **{post["title"]}**
 
 Batafsil: {post["url"]}
 
